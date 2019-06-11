@@ -33,7 +33,7 @@ def getPort():
     print("Hosting on port %d." % (forcedPort,))
     return forcedPort
 
-server_port = 17001
+server_port = int(os.getenv('PORT', '17001'))
 message_size = 8192
 # code to use with struct.pack to convert transmission size (int)
 # to a byte string

@@ -30,7 +30,7 @@ server_sock.bind((comm.server_host, comm.server_port))
 server_sock.listen(5)
 
 # Start loading neural net down here to minimize the risk of dropped requests
-from csgame.nlp_loader import nlp
+from nlp_loader import nlp
 
 print("listening on port {}...".format(comm.server_port))
 try:
