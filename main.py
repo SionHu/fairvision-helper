@@ -17,8 +17,8 @@ from spellchecker import SpellChecker
 
 # Load the essential models
 nlp = spacy.load("en_core_web_sm") # needs to be replaced with large model
-s2vOrg = Sense2Vec().from_disk("/Users/xiaohu/GitHub/NLP/sense2vec/tests/data/s2v_old")
-s2v = Sense2VecComponent(nlp.vocab).from_disk("/Users/xiaohu/GitHub/NLP/sense2vec/tests/data/s2v_old")
+s2vOrg = Sense2Vec().from_disk("./data/s2v_reddit_2015_md")
+s2v = Sense2VecComponent(nlp.vocab).from_disk("./data/s2v_reddit_2015_md")
 nlp.add_pipe(s2v)
 
 def loadFile(path):
@@ -91,21 +91,15 @@ def mergeDocs(docs):
             mDocs.extend([docs[i], docs[j]])
             print("Merging:", docs[i].get('text'), "==", docs[j].get('text'))
 
-
 if __name__ == '__main__':
     print(" -- Pipeline Information -- \n", nlp.pipe_names)
     # For larger testing
-    corpuses = loadFile('/Users/xiaohu/GitHub/NLP/sense2vec/tests/data/airplaneQuestions.csv')
+    corpuses = loadFile('./data/airplaneQuestions.csv')
 
     docs = [d for corpus in corpuses for d in [pre_process(corpus)] if d]
     mergeDocs(docs)
 
     # testing field
-    # spell = SpellChecker()
-    # docs = "hapenning mornin window jaket q"
-    # newDocs = ' '.join([spell.correction(word) for word in docs.split(' ')])
-    # print(docs, newDocs)
-
     # doc1 = ['how|ADV', 'many|ADJ', 'land|NOUN']
     # doc2 = ['what|PRON', 'parked|VERB']
     # print(s2vOrg.similarity(doc1, doc2))
