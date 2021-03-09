@@ -139,4 +139,7 @@ dmypy.json
 cython_debug/
 
 # Downloaded models
-data/s2v_reddit_2015_md
+*s2v_reddit*
+
+
+.DS_Store

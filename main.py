@@ -1,4 +1,4 @@
-from sense2vec import Sense2Vec, Sense2VecComponent
+from sense2vec import Sense2Vec
 import spacy
 from spacy.tokens import Span
 import nltk
@@ -17,9 +17,9 @@ from spellchecker import SpellChecker
 
 # Load the essential models
 nlp = spacy.load("en_core_web_sm") # needs to be replaced with large model
+# s2vOrg = nlp.add_pipe("sense2vec")
+# s2vOrg.from_disk("./data/s2v_reddit_2015_md")
 s2vOrg = Sense2Vec().from_disk("./data/s2v_reddit_2015_md")
-s2v = Sense2VecComponent(nlp.vocab).from_disk("./data/s2v_reddit_2015_md")
-nlp.add_pipe(s2v)
 
 def loadFile(path):
     corpuses = [] # used to store final results
@@ -84,9 +84,12 @@ def mergeDocs(docs):
         if not tokens1 or not tokens2:
             pass
         else:
-            # print("Curren tokens:", tokens1, tokens2)
-            simScore = s2vOrg.similarity(tokens1, tokens2)
-            # print("- Comparing:", tokens1, tokens2, '=>', simScore)
+            print("Curren tokens:", tokens1, tokens2)
+            try: # TODO: find out why it raises error for some inputs  
+                simScore = s2vOrg.similarity(tokens1, tokens2)
+            except Exception as e:
+                pass
+            print("- Comparing:", tokens1, tokens2, '=>', simScore)
         if simScore >= 0.7:
             mDocs.extend([docs[i], docs[j]])
             print("Merging:", docs[i].get('text'), "==", docs[j].get('text'))
