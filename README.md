@@ -12,7 +12,7 @@ You should always check the nice documentation of [Sense2Vec](https://github.com
 `conda activate fvhelper`
 
 #### Install dependencies: 
-`pip install -r requirements`
+`pip install -r requirements.txt`
 
 (If you run in to problems of nltk, check [this post](https://stackoverflow.com/questions/4867197/failed-loading-english-pickle-with-nltk-data-load))
 
